@@ -1,24 +1,24 @@
-var express = require('express');
+//var express = require('express');
 
 var fs = require('fs');
 var Buffer = require('buffer').Buffer;
 
 var buffer = new Buffer(100);
+var num;
 
 fs.open("index.html", 'r', function(status, fd) {
     if (status) {
         console.log(status.message);
         return;
     }
-    fs.read(fd, buffer, 0, 100, 0, function(err, num) {
-        console.log(buffer.toString('utf-8', 0, num));
-    });
+    num = fs.readSync(fd, buffer, 0, 100, 0);
 });
+
 
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-  response.send(buffer.toString('utf-8'));
+  response.send(buffer.toString('utf-8', 0, num));
 });
 
 var port = process.env.PORT || 5000;
