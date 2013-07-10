@@ -4,6 +4,7 @@ var fs = require('fs');
 var Buffer = require('buffer').Buffer;
 
 var buffer = new Buffer(100);
+var num = 0;
 
 fs.open("index.html", 'r', function(status, fd) {
     if (status) {
@@ -18,7 +19,7 @@ fs.open("index.html", 'r', function(status, fd) {
 var app = express.createServer(express.logger());
 
 app.get('/', function(request, response) {
-  response.send(buffer.toString('utf-8'));
+  response.send(buffer.toString('utf-8', 0, num));
 });
 
 var port = process.env.PORT || 5000;
