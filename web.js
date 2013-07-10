@@ -10,20 +10,20 @@ fs.open("index.html", 'r', function(status, fd) {
         console.log(status.message);
         return;
     }
-    fs.read(fd, buffer, 0, 100, 0, function(err, num) {
+    
+});
+
+var app = express.createServer(express.logger());
+
+fs.read(fd, buffer, 0, 100, 0, function(err, num) {
         console.log(buffer.toString('utf-8', 0, num));
     });
 
+app.get('/', function(request, response) {
+  response.send(buffer.toString('utf-8', 0, num));
+});
 
-    var app = express.createServer(express.logger());
-
-    app.get('/', function(request, response) {
-      response.send(buffer.toString('utf-8', 0, num));
-    });
-
-    var port = process.env.PORT || 5000;
-    app.listen(port, function() {
-      console.log("Listening on " + port);
-    });
-
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+  console.log("Listening on " + port);
 });
