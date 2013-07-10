@@ -3,7 +3,7 @@ var express = require('express');
 var fs = require('fs');
 var Buffer = require('buffer').Buffer;
 
-var buffer = new Buffer(100);
+var buffer = new Buffer(10000);
 var num;
 
 fs.open("index.html", 'r', function(status, fd) {
@@ -11,7 +11,7 @@ fs.open("index.html", 'r', function(status, fd) {
         console.log(status.message);
         return;
     }
-    num = fs.readSync(fd, buffer, 0, 100, 0);
+    num = fs.readSync(fd, buffer, 0, 10000, 0);
 });
 
 
