@@ -4,7 +4,6 @@ var fs = require('fs');
 var Buffer = require('buffer').Buffer;
 
 var buffer = new Buffer(100);
-var num = 0;
 
 fs.open("index.html", 'r', function(status, fd) {
     if (status) {
@@ -14,15 +13,17 @@ fs.open("index.html", 'r', function(status, fd) {
     fs.read(fd, buffer, 0, 100, 0, function(err, num) {
         console.log(buffer.toString('utf-8', 0, num));
     });
-});
 
-var app = express.createServer(express.logger());
 
-app.get('/', function(request, response) {
-  response.send(buffer.toString('utf-8', 0, num));
-});
+    var app = express.createServer(express.logger());
 
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
+    app.get('/', function(request, response) {
+      response.send(buffer.toString('utf-8', 0, num));
+    });
+
+    var port = process.env.PORT || 5000;
+    app.listen(port, function() {
+      console.log("Listening on " + port);
+    });
+
 });
